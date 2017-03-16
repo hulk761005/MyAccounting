@@ -4,22 +4,39 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MyAccounting.Models;
-
+using MyAccounting.Repositories;
 namespace MyAccounting.Controllers
 {
     public class AccountingController : Controller
     {
+
+        private readonly AccountingService _accountService;
+
+        public AccountingController()
+        {
+            var unitOfWork = new EFUnitOfWork();
+            _accountService = new AccountingService(unitOfWork);
+        }
         // GET: Accounting
         public ActionResult Index()
         {
-            var AccountingList = new List<AccountingViewModels>
-            {
-                new AccountingViewModels{Type = "支出",date = Convert.ToDateTime("2016-01-01"), price = 300 },
-                new AccountingViewModels{Type = "支出",date = Convert.ToDateTime("2016-01-02"), price = 16000 },
-                new AccountingViewModels{Type = "支出",date = Convert.ToDateTime("2016-01-03"), price = 8000 }
-            };
+            var AccountingList = _accountService.Lookup();
 
-            return View(AccountingList);
+            var modelList = new List<AccountingViewModels>();
+
+            foreach (var item in AccountingList)
+            {
+                var model = new AccountingViewModels()
+                {
+                    price = (decimal)item.Amounttt,
+                    Type = item.Categoryyy == 1 ? "收入" : "支出",
+                    date = item.Dateee,
+                    Note = item.Remarkkk
+                };
+                modelList.Add(model);
+            }
+
+            return View(modelList);
         }
 
         // GET: Accounting/Details/5
@@ -42,6 +59,8 @@ namespace MyAccounting.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    _accountService.Add(model);
+                    _accountService.Save();
                     return RedirectToAction("Index");
                 }
 
