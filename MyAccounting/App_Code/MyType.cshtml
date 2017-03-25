@@ -1,0 +1,17 @@
+﻿@helper TransColors(string type)
+{
+if (type == "支出")
+{
+        <p class="text-danger">@type</p>
+}
+else if (type == "收入")
+{
+        <p class="text-info">@type</p>
+}
+else
+{
+        <p class="text-info">@type</p>
+}
+}
+
+

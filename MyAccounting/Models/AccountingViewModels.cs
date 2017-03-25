@@ -31,6 +31,7 @@ namespace MyAccounting.Models
         public System.DateTime date { get; set; }
 
         [Display(Name = "備註")]
+        [MaxLength(100)]
         public string Note { get; set; }
 
         public string Message { get; set; }
