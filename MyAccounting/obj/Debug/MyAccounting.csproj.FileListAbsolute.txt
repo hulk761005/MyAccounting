@@ -67,3 +67,7 @@ F:\workspace\MyAccounting\MyAccounting\bin\Microsoft.Owin.Security.MicrosoftAcco
 F:\workspace\MyAccounting\MyAccounting\obj\Debug\MyAccounting.csprojResolveAssemblyReference.cache
 F:\workspace\MyAccounting\MyAccounting\obj\Debug\MyAccounting.dll
 F:\workspace\MyAccounting\MyAccounting\obj\Debug\MyAccounting.pdb
+F:\workspace\MyAccounting\MyAccounting\bin\PagedList.dll
+F:\workspace\MyAccounting\MyAccounting\bin\PagedList.Mvc.dll
+F:\workspace\MyAccounting\MyAccounting\bin\PagedList.xml
+F:\workspace\MyAccounting\MyAccounting\bin\PagedList.Mvc.xml

@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using MyAccounting.Models;
 using MyAccounting.Repositories;
+using PagedList;
+
 namespace MyAccounting.Controllers
 {
     public class AccountingController : Controller
@@ -18,25 +20,18 @@ namespace MyAccounting.Controllers
             _accountService = new AccountingService(unitOfWork);
         }
         // GET: Accounting
-        public ActionResult Index()
+        public ActionResult Index(int page = 1)
         {
-            var AccountingList = _accountService.Lookup();
+            var AccountingList = _accountService
+                .Lookup()
+                .Select(a => new AccountingViewModels {
+                    price = (decimal)a.Amounttt,
+                    Type = a.Categoryyy == 1 ? "收入" : "支出",
+                    date = a.Dateee,
+                    Note = a.Remarkkk
+                }).OrderBy(a => a.date).ToPagedList(page, 10);
 
-            var modelList = new List<AccountingViewModels>();
-
-            foreach (var item in AccountingList)
-            {
-                var model = new AccountingViewModels()
-                {
-                    price = (decimal)item.Amounttt,
-                    Type = item.Categoryyy == 1 ? "收入" : "支出",
-                    date = item.Dateee,
-                    Note = item.Remarkkk
-                };
-                modelList.Add(model);
-            }
-
-            return View(modelList);
+            return View(AccountingList);
         }
 
         // GET: Accounting/Details/5

@@ -1,8 +1,13 @@
-﻿@model IEnumerable<MyAccounting.Models.AccountingViewModels>
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<MyAccounting.Models.AccountingViewModels>
 
 @{
     ViewBag.Title = "Index";
 }
+
+<link href="~/Content/PagedList.css" rel="stylesheet" />
 
 <div class="container">
     <table class="table table-striped">
@@ -25,13 +30,11 @@
                         <td>@item.date.ToString("yyyy-MM-dd")</td>
                         <td>@item.price.ToString("#,###")</td>
                         <td style="word-break: break-all;width:500px">@item.Note</td>
-                        
                     </tr>
-
                 }
             }
-
         </tbody>
     </table>
+    @Html.PagedListPager(Model, page => Url.Action("Index",new { page}))
 </div>
 

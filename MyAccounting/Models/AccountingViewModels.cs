@@ -25,6 +25,7 @@ namespace MyAccounting.Models
 
         [Display(Name = "金額")]
         [DataType(DataType.Currency)]
+        [Range(0,int.MaxValue)]
         public string price { get; set; }
 
         [Display(Name = "日期")]
